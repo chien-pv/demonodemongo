@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { connectDB } from "./config/connectDB.mjs";
 import rootRouter from "./routes/root.mjs";
 import userRouter from "./routes/user.mjs";
+import apiRouter from "./routes/api.mjs";
 import bodyParser from "body-parser";
 connectDB();
 const app = express();
@@ -19,6 +20,7 @@ app.set("views", "./views");
 
 app.use("/", rootRouter);
 app.use("/users", userRouter);
+app.use("/api/v1/users", apiRouter);
 
 app.listen(3000, () => {
   console.log("Server Started!!!");
