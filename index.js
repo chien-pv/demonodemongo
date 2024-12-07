@@ -5,9 +5,17 @@ import rootRouter from "./routes/root.mjs";
 import userRouter from "./routes/user.mjs";
 import apiRouter from "./routes/api.mjs";
 import bodyParser from "body-parser";
+import session from "express-session";
 connectDB();
 const app = express();
 
+app.use(
+  session({
+    secret: "UDA123",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded());
 // parse application/json

@@ -2,7 +2,15 @@ import express from "express";
 import UserController from "../controllers/user_controller.mjs";
 const userRouter = express.Router();
 
-userRouter.get("/", UserController.index);
+function checkLogin(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+userRouter.get("/", checkLogin, UserController.index);
 userRouter.get("/new", UserController.new);
 userRouter.post("/create", UserController.create);
 userRouter.get("/delete/:id", UserController.delete);
